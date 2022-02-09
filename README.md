@@ -7,7 +7,21 @@ Obtained the above dataset from physionet.org.
 
 This project was part of my operating systems class, and was recently moved to my public repo.
 
-## Background Information
+## Server Specification
+The server supports several functionalities. The client requests a certain functionality by sending 
+the appropriate message to the server. Internally, the server will execute the correct 
+corresponding functionality, prepare a reply message for the client, and send it back. 
+ 
+  
+Connecting to the Server 
+You will see the following in the server main function: 
+FIFORequestChannel* control_channel = new FIFORequestChannel ("control", 
+FIFORequestChannel::SERVER_SIDE); 
+which sets up a communication channel over an OS-provided IPC mechanism called “named 
+pipe”. Note that the first argument in the channel constructor is the name of the channel. To 
+connect to this server, the client has to create an instance with the same name, but with 
+CLIENT_SIDE as the second argument: 
+FIFORequestChannel chan ("control", FIFORequestChannel::CLIENT_SIDE);
 
 ## Flag Description
 
@@ -27,10 +41,10 @@ This project was part of my operating systems class, and was recently moved to m
 * $ ./client -f 10.csv
 
 ## Change Buffer Capacity Example Command
-$ ./client -m 5000 
+* $ ./client -m 5000 
 
 ## Create New FifoRequest Channel Example Command
-$ ./client -c 
+* $ ./client -c 
 
 Type quit to end the program
 
